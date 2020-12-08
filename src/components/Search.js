@@ -6,7 +6,7 @@ const Search = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    const search = async () => {
       const { data } = await axios('https://en.wikipedia.org/w/api.php', {
         params: {
           action: 'query',
@@ -18,22 +18,34 @@ const Search = () => {
       });
       console.log('data', data);
       setResults(data.query.search);
-    })();
+    };
+
+    if (term && !results.length) {
+      search();
+    } else {
+      if (term) {
+        const timer = setTimeout(() => search(), 500);
+        return () => clearTimeout(timer);
+      }
+    }
   }, [term]);
 
   const renderedResults = results.map((item, i) => {
     return (
-      <div className='item' key={item.pageid}>
-        <div className='right floated content'>
-          <a href={`https://en.wikipedia.org?curid=${item.pageid}`} className='ui button'>
-            Go
-          </a>
+      <>
+        <div className='item' style={{ display: 'flex', justifyContent: 'space-between' }} key={item.pageid}>
+          <div className='content'>
+            <div className='header'>{item.title}</div>
+            <span dangerouslySetInnerHTML={{ __html: item.snippet }}></span>
+          </div>
+          <div className='right floated content'>
+            <a href={`https://en.wikipedia.org?curid=${item.pageid}`} className='ui button'>
+              Go
+            </a>
+          </div>
         </div>
-        <div className='content'>
-          <div className='header'>{item.title}</div>
-          <span dangerouslySetInnerHTML={{ __html: item.snippet }}></span>
-        </div>
-      </div>
+        <div className='ui inverted divider'></div>
+      </>
     );
   });
 
