@@ -37,8 +37,8 @@ const Search = () => {
 
   const renderedResults = results.map((item, i) => {
     return (
-      <>
-        <div className='item' style={{ display: 'flex', justifyContent: 'space-between' }} key={item.pageid}>
+      <div key={`${item.pageid}-${i}`}>
+        <div className='item' style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div className='content'>
             <div className='header'>{item.title}</div>
             <span dangerouslySetInnerHTML={{ __html: item.snippet }}></span>
@@ -50,7 +50,7 @@ const Search = () => {
           </div>
         </div>
         <div className='ui inverted divider'></div>
-      </>
+      </div>
     );
   });
 
