@@ -37,20 +37,17 @@ const Search = () => {
 
   const renderedResults = results.map((item, i) => {
     return (
-      <div key={`${item.pageid}-${i}`}>
-        <div className='item' style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div className='content'>
-            <div className='header'>{item.title}</div>
-            <span dangerouslySetInnerHTML={{ __html: item.snippet }}></span>
-          </div>
+        <div key={`${item.pageid}-${i}`} className='item'>
           <div className='right floated content'>
             <a href={`https://en.wikipedia.org?curid=${item.pageid}`} className='ui button'>
               Go
             </a>
           </div>
+          <div className='content'>
+            <div className='header'>{item.title}</div>
+            <span dangerouslySetInnerHTML={{ __html: item.snippet }}></span>
+          </div>
         </div>
-        <div className='ui inverted divider'></div>
-      </div>
     );
   });
 
@@ -61,7 +58,7 @@ const Search = () => {
           <label htmlFor=''>Enter Search Term</label>
           <input value={term} onChange={e => setTerm(e.target.value)} className='input' />
         </div>
-        <div>{renderedResults}</div>
+        <div className='ui celled list'>{renderedResults}</div>
       </div>
     </div>
   );
