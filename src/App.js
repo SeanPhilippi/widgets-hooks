@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Accordion from './components/Accordion';
 import Search from './components/Search';
@@ -21,6 +21,16 @@ const items = [
 ];
 
 const App = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+
+  }, []);
+
+  const renderedUsers = users.map(user => {
+    return <li key={user.id}>{user.name}</li>
+  });
+
   return (
     <div>
       <Translate />
