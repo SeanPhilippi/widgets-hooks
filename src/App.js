@@ -21,7 +21,12 @@ const App = () => {
         <Search />
       </Route>
       <Route path='/dropdown'>
-        <Dropdown options={options} label='Select a color' selected={selected} onSelectedChange={setSelected} />
+        <Dropdown
+          options={options}
+          label='Select a color'
+          selected={selected}
+          onSelectedChange={setSelected}
+        />
       </Route>
       <Route path='/translate'>
         <Translate />
